@@ -20,8 +20,5 @@ const UserSchema = new Schema({
         default: 'user'
  },
 },{timestamps:true});
-// function linkUrl(image){
-//    return('http://localhost:3004/'+image);
-//  }
 const UserModel = mongoose.model('User',UserSchema);
 module.exports = UserModel

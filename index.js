@@ -338,7 +338,11 @@ app.get("/search", async (request, response) => {
 });
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/jobDb').then(() => {
+// mongo password   XA78CAnYR35WsgSc
+// mongo link code  mongodb+srv://mehboob05:<password>@jobsite.2znsayl.mongodb.net/
+
+
+mongoose.connect('mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb').then(() => {
   app.listen(3004, () => {
     console.log("Database and server Running");
   })
