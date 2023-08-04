@@ -61,7 +61,7 @@ app.post("/create-job", upload.single('image'), async (request, response) => {
   }
 })
 
-// delete jobs
+// delete jobs by id
 app.delete("/delete-job/:id", async (req, res) => {
   const delid = req.params.id;
   try {
@@ -78,7 +78,8 @@ app.delete("/delete-job/:id", async (req, res) => {
 
 })
 
-// update jobs
+
+// update jobs by id
 app.put("/update-job/:id", upload.single('image'), async (req, res) => {
   const id = req.params.id;
   if (req.file.mimetype == "image/png" || req.file.mimetype == "image/jpg" || req.file.mimetype == "image/jpeg" || req.file.mimetype == "image/gif") {
@@ -112,7 +113,7 @@ app.put("/update-job/:id", upload.single('image'), async (req, res) => {
     }
   }
 })
-// find all jobs
+// find all jobs by catagory
 app.get("/jobs", async (req, res) => {
 
   const category = req.query.cat;
@@ -139,13 +140,34 @@ app.get("/jobs", async (req, res) => {
 
 // find job by id
 app.get("/job/:id", async (req, res) => {
+
   const id = req.params.id;
+  console.log(id)
   try {
      const readjob = await JobModelAdmin.findById(id);
     res.json({
       status: true,
       msg: "Read job Successfully",
       jobs: readjob
+    })
+  } catch (error) {
+    return response.json({
+      status: false,
+      message: "Something went wrong"
+    })
+  }
+})
+
+// find all jobs simple
+app.get("/alljobs", async (req, res) => {
+  console.log("all jobs")
+  try {
+     const allJobs = await JobModelAdmin.find();
+
+    res.json({
+      status: true,
+      msg: "Read job Successfully",
+      jobs: allJobs
     })
   } catch (error) {
     return response.json({
@@ -340,9 +362,9 @@ app.get("/search", async (request, response) => {
 
 // mongo password   XA78CAnYR35WsgSc
 // mongo link code  mongodb+srv://mehboob05:<password>@jobsite.2znsayl.mongodb.net/
+// mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb
 
-
-mongoose.connect('mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb').then(() => {
+mongoose.connect('mongodb://127.0.0.1:27017/jobDb').then(() => {
   app.listen(3004, () => {
     console.log("Database and server Running");
   })
