@@ -179,6 +179,7 @@ app.get("/alljobs", async (req, res) => {
 
 // queries for user model
 
+
 // Signup user 
 app.post("/signup-user", async (request, response) => {
   try {
