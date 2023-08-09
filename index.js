@@ -14,7 +14,7 @@ const authCheck = require("./middleware/authCheck");
 var jwt = require('jsonwebtoken');
 const { response } = require("express");
 const privateKey = "khkhj&^5234234((*23423";
-
+require('dotenv').config();
 
 //middleware used
 app.use(express.json());
@@ -66,7 +66,7 @@ app.delete("/delete-job/:id", async (req, res) => {
   const delid = req.params.id;
   try {
     await JobModelAdmin.findByIdAndDelete(delid);
-    res.json({
+   return res.json({
       status: true,
       msg: "Record delete Successfully"
     })
@@ -145,7 +145,7 @@ app.get("/job/:id", async (req, res) => {
   console.log(id)
   try {
      const readjob = await JobModelAdmin.findById(id);
-    res.json({
+     return res.json({
       status: true,
       msg: "Read job Successfully",
       jobs: readjob
@@ -164,7 +164,7 @@ app.get("/alljobs", async (req, res) => {
   try {
      const allJobs = await JobModelAdmin.find();
 
-    res.json({
+     return  res.json({
       status: true,
       msg: "Read job Successfully",
       jobs: allJobs
@@ -178,8 +178,88 @@ app.get("/alljobs", async (req, res) => {
 })
 
 // queries for user model
+// find user by id
+app.get("/user/:id", async (req, res) => {
+
+  const id = req.params.id;
+  console.log(id)
+  try {
+     const clientid = await UserModel.findById(id);
+     return res.json({
+      status: true,
+      msg: "Read user Successfully",
+      users: clientid
+    })
+  } catch (error) {
+    return response.json({
+      status: false,
+      message: "Something went wrong"
+    })
+  }
+})
+// find all users simple
+app.get("/allusers", async (req, res) => {
+  console.log("all users")
+  try {
+     const allusers = await UserModel.find();
+
+     return  res.json({
+      status: true,
+      msg: "Read user Successfully",
+      users: allusers
+    })
+  } catch (error) {
+    return response.json({
+      status: false,
+      message: "Something went wrong"
+    })
+  }
+})
 
 
+// delete user by id
+app.delete("/delete-user/:id", async (req, res) => {
+  const uid = req.params.id;
+  try {
+    await UserModel.findByIdAndDelete(uid);
+   return res.json({
+      status: true,
+      msg: "User delete Successfully"
+    })
+  } catch (error) {
+    return response.json({
+      status: false
+    })
+  }
+
+})
+// update user by id
+app.put("/update-user/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    
+   const result =  await UserModel.findByIdAndUpdate(id,{name:req.body.name, email:req.body.email, password:req.body.password,role:req.body.role});
+   console.log(result); 
+   return res.json({
+      status: true,
+      msg: "user update successfully",
+      users:result
+    });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      let errors = {};
+
+      Object.keys(error.errors).forEach((key) => {
+        errors[key] = error.errors[key].message;
+      });
+
+      return res.json({
+        status: false,
+        errors: errors
+      })
+    }
+  }
+})
 // Signup user 
 app.post("/signup-user", async (request, response) => {
   try {
@@ -365,8 +445,8 @@ app.get("/search", async (request, response) => {
 // mongo link code  mongodb+srv://mehboob05:<password>@jobsite.2znsayl.mongodb.net/
 // mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb
 
-mongoose.connect('mongodb://127.0.0.1:27017/jobDb').then(() => {
-  app.listen(3004, () => {
+mongoose.connect(process.env.DB).then(() => {
+  app.listen(process.env.PORT, () => {
     console.log("Database and server Running");
   })
 })
