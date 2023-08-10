@@ -157,14 +157,14 @@ app.get("/api/job/:id", async (req, res) => {
 
 // find all jobs simple
 app.get("/api/alljobs", async (req, res) => {
-  console.log("all jobs")
+  
   try {
-     const allJobs = await JobModelAdmin.find();
+     //const allJobs = await JobModelAdmin.find();
 
      return  res.json({
       status: true,
       msg: "Read job Successfully",
-      jobs: allJobs
+      jobs: []
     })
   } catch (error) {
     return response.json({
