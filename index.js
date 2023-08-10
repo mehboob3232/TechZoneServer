@@ -363,6 +363,41 @@ app.post("/login", async (request, response) => {
 })
 
 
+//applications model
+// find all users simple
+app.get("/allapplications", async (req, res) => {
+  console.log("all applications")
+  try {
+     const allapps = await ApplicationModel.find();
+
+     return  res.json({
+      status: true,
+      msg: "Read user Successfully",
+      applications: allapps
+    })
+  } catch (error) {
+    return response.json({
+      status: false,
+      message: "Something went wrong"
+    })
+  }
+})
+// delete user by id
+app.delete("/delete-app/:id", async (req, res) => {
+  const aid = req.params.id;
+  try {
+    await ApplicationModel.findByIdAndDelete(aid);
+   return res.json({
+      status: true,
+      msg: "Application delete Successfully"
+    })
+  } catch (error) {
+    return response.json({
+      status: false
+    })
+  }
+
+})
 // applications by id
 app.get("/applicationbyuser/:id", async (request, response) => {
 
