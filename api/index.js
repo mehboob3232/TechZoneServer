@@ -20,6 +20,7 @@ app.get("/api", async (request, response) => {
       });
   });
 
+  //api
 
 // queries for admin model
 // create job using post method
