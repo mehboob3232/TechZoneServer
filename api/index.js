@@ -474,6 +474,9 @@ app.get("/api/search", async (request, response) => {
 
 mongoose.connect("mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb").then(() => {
    console.log("DB connect")
+  //  app.listen(3004, () => {
+  //   console.log("Database and server Running");
+  // })
 
   });
 
