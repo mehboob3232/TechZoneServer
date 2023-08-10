@@ -159,12 +159,12 @@ app.get("/api/job/:id", async (req, res) => {
 app.get("/api/alljobs", async (req, res) => {
   
   try {
-     //const allJobs = await JobModelAdmin.find();
+     const allJobs = await JobModelAdmin.find();
 
      return  res.json({
       status: true,
       msg: "Read job Successfully",
-      jobs: []
+      jobs: allJobs
     })
   } catch (error) {
     return response.json({
@@ -196,7 +196,7 @@ app.get("/api/user/:id", async (req, res) => {
 })
 // find all users simple
 app.get("/api/allusers", async (req, res) => {
-  console.log("all users")
+  
   try {
      const allusers = await UserModel.find();
 
