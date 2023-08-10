@@ -472,9 +472,16 @@ app.get("/api/search", async (request, response) => {
   }
 });
 
-mongoose.connect("mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb").then(() => {
+mongoose.connect("mongodb+srv://mehboobldn:nVu9Y0PuqbmPUBQa@cluster0.shm2ur9.mongodb.net/jobDb").then(() => {
    console.log("DB connect")
 
   });
 
   module.exports = app;
+
+
+  // mehboobldn
+
+  // nVu9Y0PuqbmPUBQa
+
+  
