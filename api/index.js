@@ -17,14 +17,9 @@ app.get("/api", async (request, response) => {
 
 
 
+// mongoose.connect("mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb").then(() => {
+//    console.log("DB connect")
 
-
-
-
-
-mongoose.connect("mongodb+srv://mehboob05:XA78CAnYR35WsgSc@jobsite.2znsayl.mongodb.net/jobDb").then(() => {
-   console.log("DB connect")
-
-  });
+//   });
 
   module.exports = app;
