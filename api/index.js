@@ -12,6 +12,10 @@ const { response } = require("express");
 const privateKey = "khkhj&^5234234((*23423";
 require('dotenv').config();
 
+app.use(cors({
+  origin: "*",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}));
 app.get("/api", async (request, response) => {
 
     return response.json({
